@@ -17,7 +17,7 @@ http://bl.ocks.org/baolingz/527ec140b20ffd5cb5aaa4662f471b5e
 1. The histogram is static for now, it's supposed to connected to the input user interface. 
 2. The reset buttom doesn's work for now.
 3. You need to refresh the page every time before you make new changes in the user interface.
-4. The "dark" buttom doesn't work appropriately. If you accidently click it, you can refesh the page and redo the selection to make it work (sorry about all of these inconvenience :( we still tweaking it now.)
+4. The "dark" buttom doesn't work appropriately. If you accidently click it, you can refesh the page and redo the selection to make the map work again. Sorry about all of these inconvenience, we still tweaking it :(
 
 - Instruction: 
 1. after you get into the page, you can select a city and unchecked boxes to customize the filter
