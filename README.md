@@ -1,5 +1,5 @@
 ## Title
-### Find Coffee Shops in 24 Populated Cities in US
+### Find Coffee Shops in 25 Populated Cities in US
 --- Visualization Project CUSP
 
 ## Team members
@@ -27,16 +27,16 @@ http://bl.ocks.org/baolingz/527ec140b20ffd5cb5aaa4662f471b5e
 
 ## Objectives of the project
 #### A brief context of the project, and what tasks you're aiming to solve using visualizations, domain(target user) and task abstraction.
-We had built a multifunctional web page which enables users to see all the available coffee shops in 24 cities under several filtering functions, such as price level, coffee shop types and minimum rating.  Our target audience are people who are coffee lovers and looking for coffee shops with certain special servings, like bakeries and ice-cream. It's also a great tool for people who want to explore the coffee shops availability before they move into new neighborhoods.
+We had built a multifunctional web page which enables users to see all the available coffee shops in 25 cities under several filtering functions, such as price level, coffee shop types and minimum rating.  Our target audience are people who are coffee lovers and looking for coffee shops with certain special servings, like bakeries and ice-cream. It's also a great tool for people who want to explore the coffee shops availability before they move into new neighborhoods.
 
 
 ## Data set involves
-Yelp
+Our project deals with data from coffee shops in 25 major American cities. This data did not exist in a clean format, so we wrote a script to interface with Yelp and Zillow APIs. These pulled data is then aggregated with a spatial joins and concatenations to produce our final dataset. To perform initial exploratory analysis and to gain a better understanding of the 'coffee-shop-footprint' of different cities, we graphed location and plot data, as can be seen in our iPython Notebook. We used this analysis to inform our choice of relevant categories and to better anticipate what users may want to find on our web-visualization. 
 
 ## Descriptions on your visualization design choices. For example, why you're choosing the types of visualization, representations, and/or interactions in your project.
 
 Visualization Representation:
-- Scatterplots on the map shows the location of coffeeshops in 24 cities. The size of the points indicates the number of reviews available in the yelp data for different coffee places. The more reviews there are, the bigger the points will be.
+- Scatterplots on the map shows the location of coffeeshops in 25 cities. The size of the points indicates the number of reviews available in the yelp data for different coffee places. The more reviews there are, the bigger the points will be.
 
 - Histogram section(down for now) on the bottom left contains three parts: all the charts created are based on coffee shops remained after UI filtering. 
 
