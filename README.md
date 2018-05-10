@@ -45,11 +45,11 @@ Visualization Representation:
 Interactions:
 - selection function: you can click the square box on the top right and then click the "selection". Doing this will enable the radias circle shown on the map. You can move it around and strech it in different sizes and shows coffee shops within the circle only. (This function will be activated automatically every time when you click the map, but the radias circle will be invisible at that point. you can click the "selection" buttom to make it visible)
 
-# Outcome and Evaluation: how did the visualization helps your users to achieve the objectives.
+## Outcome and Evaluation: how did the visualization helps your users to achieve the objectives.
 
 
 
-# Visualization Tools Used
+## Visualization Tools Used
 React, Javascript, Carto.
 
 
