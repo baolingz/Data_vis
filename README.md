@@ -14,7 +14,7 @@ Baoling Zhou     NetID: bz882
 http://bl.ocks.org/baolingz/527ec140b20ffd5cb5aaa4662f471b5e
 
 
-![alt text](http://url/to/coffee.png)
+![alt text](https://raw.githubusercontent.com/baolingz/Data_vis/master/coffee.png)
 
 - Issues for now: 
 1. The histogram is static for now, it's supposed to be connected with the user interface. 
