@@ -6,9 +6,9 @@
 
 Andrew Neil      NetID: adn323
 
-Alex Shannon     NetID: acs8822
+Alex Shannon     NetID: acs882
 
-Baoling Zhou     NetID: bz882882
+Baoling Zhou     NetID: bz882
 
 ## Visualization Link: 
 
