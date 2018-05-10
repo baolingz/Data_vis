@@ -11,6 +11,7 @@ Alex Shannon     NetID: acs882
 Baoling Zhou     NetID: bz882
 
 ## Visualization Link: 
+http://bl.ocks.org/baolingz/527ec140b20ffd5cb5aaa4662f471b5e
 
 - Issues for now: 
 1. The histogram is static for now, it's supposed to connected to the input user interface. 
