@@ -13,6 +13,9 @@ Baoling Zhou     NetID: bz882
 ## Visualization Link: 
 http://bl.ocks.org/baolingz/527ec140b20ffd5cb5aaa4662f471b5e
 
+
+![alt text](http://url/to/coffee.jpeg)
+
 - Issues for now: 
 1. The histogram is static for now, it's supposed to be connected with the user interface. 
 2. The reset buttom doesn's work for now.
