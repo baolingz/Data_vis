@@ -26,7 +26,7 @@ http://bl.ocks.org/baolingz/527ec140b20ffd5cb5aaa4662f471b5e
 
 
 ## Objectives of the project
-#### a brief context of the project, and what tasks you're aiming to solve using visualizations, domain(target user) and task abstraction.
+#### A brief context of the project, and what tasks you're aiming to solve using visualizations, domain(target user) and task abstraction.
 We had built a multifunctional web page which enables users to see all the available coffee shops in 24 cities under several filtering functions, such as price level, coffee shop types and minimum rating.  Our target audience are people who are coffee lovers and looking for coffee shops with certain special servings, like bakeries and ice-cream. It's also a great tool for people who want to explore the coffee shops availability before they move into new neighborhoods.
 
 
