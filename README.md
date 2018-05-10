@@ -1,8 +1,8 @@
-# Title:
+## Title:
 ### Find Coffees in 24 Populated Citeis in US
 --- Visualization Project CUSP
 
-# Team members
+## Team members
 
 Andrew Neil      NetID: adn323
 
@@ -10,7 +10,7 @@ Alex Shannon     NetID: acs8822
 
 Baoling Zhou     NetID: bz882882
 
-#Visualization Link: 
+## Visualization Link: 
 
 - Issues for now: 
 1. The histogram is static for now, it's supposed to connected to the input user interface. 
@@ -23,15 +23,15 @@ Baoling Zhou     NetID: bz882882
 3. selection function: you can click the square box on the top right and then click the "selection". Doing this will enable the radias circle shown on the map. You can move it around and strech it in different sizes and shows coffee shops within the circle only. (This function will be activated automatically every time when you click the map, but the radias circle will be invisible at that point. you can click the "selection" buttom to make it visible).
 
 
-# Objectives of the project
+## Objectives of the project
 #### a brief context of the project, and what tasks you're aiming to solve using visualizations, domain(target user) and task abstraction.
 We had built a multifunctional web page which enables users to see all the available coffee shops in 24 cities under several filtering functions, such as price level, coffee shop types and minimum rating.  Our target audience are people who are coffee lovers and looking for coffee shops with certain special servings, like bakeries and ice-cream. It's also a great tool for people who want to explore the coffee shops availability before they move into new neighborhoods.
 
 
-# Data set involves
+## Data set involves
 Yelp
 
-# Descriptions on your visualization design choices. For example, why you're choosing the types of visualization, representations, and/or interactions in your project.
+## Descriptions on your visualization design choices. For example, why you're choosing the types of visualization, representations, and/or interactions in your project.
 
 Visualization Representation:
 - Scatterplots on the map shows the location of coffeeshops in 24 cities. The size of the points indicates the number of reviews available in the yelp data for different coffee places. The more reviews there are, the bigger the points will be.
