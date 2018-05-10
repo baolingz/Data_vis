@@ -1,5 +1,5 @@
 ## Title
-### Find Coffee Shops in 24 Populated Citeis in US
+### Find Coffee Shops in 24 Populated Cities in US
 --- Visualization Project CUSP
 
 ## Team members
