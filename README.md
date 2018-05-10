@@ -16,13 +16,13 @@ http://bl.ocks.org/baolingz/527ec140b20ffd5cb5aaa4662f471b5e
 - Issues for now: 
 1. The histogram is static for now, it's supposed to be connected with the input user interface. 
 2. The reset buttom doesn's work for now.
-3. You need to refresh the page every time before you make new changes in the user interface.
+3. You need to refresh the page every time before you make new changes in the input section.
 4. The "dark" buttom doesn't work appropriately. If you accidently click it, you can refesh the page and redo the selection to make the map work again. Sorry about all of these inconvenience, we still tweaking it :(
 
 - Instruction: 
-1. after you get into the page, you can select a city and unchecked boxes to customize the filter
+1. After you get into the page, you can select a city and unchecked boxes to customize the filter
 2. Then, you click the "update" buttom and a map with plots be shown on the right-hand side. 
-3. selection function: you can click the square box on the top right and then click the "selection". Doing this will enable the radias circle shown on the map. You can move it around and strech it in different sizes and shows coffee shops within the circle only. (This function will be activated automatically every time when you click the map, but the radias circle will be invisible at that point. you can click the "selection" buttom to make it visible).
+3. Selection function: you can click the square box on the top right and then click the "selection". Doing this will enable the radias circle shown on the map. You can move it around and strech it in different sizes and shows coffee shops within the circle only. (This function will be activated automatically every time when you click the map, but the radias circle will be invisible at that point. you can click the "selection" buttom to make it visible).
 
 
 ## Objectives of the project
