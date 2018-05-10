@@ -1,5 +1,5 @@
-## Title:
-### Find Coffees in 24 Populated Citeis in US
+## Title
+### Find Coffee Shops in 24 Populated Citeis in US
 --- Visualization Project CUSP
 
 ## Team members
