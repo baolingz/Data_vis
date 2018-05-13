@@ -31,7 +31,7 @@ Our project deals with data from coffee shops in 25 major American cities. This 
 - Download the following three files and upload them to the pythonanywhere/mysite (An account and virtual environment need to be created, and Altair need to be installed first).
 1. index.html: our front-end webpage design
 2. app.py: connecting front-end with the back-end.
-3. CreateChart.py: histogram creating functions
+3. createChart.py: histogram creating functions
 4. final_coffee.csv: final clean yelp dataset
 
 - Create a web page served on virtual env you created and connect it to app.py.
