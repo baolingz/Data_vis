@@ -13,7 +13,7 @@ Baoling Zhou     NetID: bz882
 http://ando9.pythonanywhere.com/
 
 
-![alt text](https://raw.githubusercontent.com/andrewnell/Data_Visualization/master/DataViz2018_adn323/Project/coffee_app_image.PNG)
+![alt text](https://github.com/baolingz/Data_vis/blob/master/coffee_app_image.PNG)
 
 - Instruction: 
 1. After you get into the page, you can select a city and unchecked boxes to customize the filter. (All checkboxes are checked as a default setting for testing purpose, since all coffee shops will be displayed at first sight. In real world practices, we will make our default setting as all things unchecked).
