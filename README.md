@@ -10,7 +10,7 @@ Alex Shannon     NetID: acs882
 Baoling Zhou     NetID: bz882
 
 ## Visualization Link: 
-http://paulinez.pythonanywhere.com/
+http://ando9.pythonanywhere.com/
 
 
 ![alt text](https://github.com/baolingz/Data_vis/blob/master/coffee_app_image.PNG)
