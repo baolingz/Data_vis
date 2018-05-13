@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.3/d3.min.js"></script>
+  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+  <script src="https://cartodb-libs.global.ssl.fastly.net/carto.js/v4.0.1/carto.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.2/leaflet.draw.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.2/leaflet.draw.js"></script>
+  <script src="https://fb.me/react-with-addons-15.1.0.js"></script>
+  <script src="https://fb.me/react-dom-15.1.0.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/vega@3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@3"></script>
+  <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+
+<style id="jsbin-css">
+#ui {
+  width: 600px;
+  height: 150px;
+  top: 0px;
+  left: 0px;
+}
+
+
+
+#vis {
+  width: 500px;
+  height: 500px;
+  top: 1000px;
+  left: 0px;
+}
+
+#chart {
+  width: 1000px;
+  height:100px;
+  left: 500px;
+  top: 500px;
+
+
+}
+
+#map {
+  width: 800px;
+  height: 800px;
+  left: 750px;
+  top: -900px;
+  float: left;
+  display: inline-block;
+}
+
+
+
+.legendbox {
+  background: rgba(255,255,255,0.7);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  height: 45px;
+  width: 300px;
+}
+
+
+.Header {
+  fill: black;
+  font-family: Helvetica;
+  font-size: 45px;
+  text-anchor: middle;
+
+}
+
+.subtext {
+  fill: black;
+  font-family: Helvetica;
+  font-size: 10px;
+  text-anchor: middle;
+}
+
+.label {
+  fill: black;
+  font-family: Helvetica;
+  font-size: 14px;
+  text-anchor: middle;
+}
+
+.leaflet-edit-move {
+  max-width: 16px;
+  max-height: 16px;
+  border-radius: 50%;
+  background: #ff7800;
+  border: 1px solid #000;
+  opacity: 0.85;
+}
+
+.leaflet-edit-resize {
+  max-width: 16px;
+  max-height: 16px;
+  border-radius: 50%;
+  background: #0078ff;
+  border: 1px solid #000;
+  opacity: 0.85;
+}
+
+.infobox {
+  text-align: left;
+  line-height: 14px;
+  font-size: 14px;
+  color: #000000;
+  width: 170px;
+  height: 38px;
+
+  margin-top: 0px;
+  padding: 8px 8px;
+  background: white;
+  background: rgba(255,255,255,1);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 5px;
+}
+
+/* html, body {
+        position:relative;
+      }
+      html, body, #map {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+      .legend-selector {
+        position:absolute;
+        top: 20px; right: 20px;
+        margin: 0; padding: 0;
+        z-index: 100;
+      }
+      .legend-selector li {
+        display:inline-block;
+        margin: 0 0 0 10px; padding: 0;
+        list-style:none;
+      }
+      .legend-selector li a {
+        display:block;
+        text-decoration:none;
+        text-align:center;
+        font: normal 13px "Helvetica",Arial;
+        color: #858585;
+        webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 0 4px 2px;
+        -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 0 4px 2px;
+        box-shadow: rgba(0, 0, 0, 0.2) 0 0 4px 2px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+        border-radius: 4px;
+        border: 1px solid #999;
+        background: #FFF;
+        z-index: 5;
+        padding: 10px;
+      }
+      .legend-selector li a.selected {
+        background:#f1f1f1;
+      } */
+</style>
+</head>
+<body>
+  <h1 class="Header"> Find your Coffee Shop </h1>
+  <ul class="legend-selector"> </ul>
+  <div id="ui"></div>
+  <p class="subtext"> *Colours indicate coffee shop type
+                      <br />
+                      *Size indicates number of reviews</p>
+  <div id="vis"></div>
+  <div id="maps">
+    <div id="chart">
+      <svg width="550" height="650">
+      </svg>
+    </div>
+    <div id="map">
+      <div class="legends"></div>
+     </div>
+    </div>
+  </div>
+
+<script id="jsbin-javascript">
+// Data Viz Project - Final
+/*******************************************************************
+This is the html and javascript code to create the front end user interface
+of the the project as well as the map hosted by carto and the exchange and
+filtering between the UI and Carto, where Queries are updated from the user
+interface toggles and sent to Carto, who hosts the data and map and is
+updated and then requested here.
+*******************************************************************/
+
+// Initialize map
+var err = 'error';
+window.initial = initVisualization(err)
+
+// Create React Userface
+class App extends React.Component {
+
+    // Set Default seletions for UI
+  constructor(props) {
+    super(props);
+    this.state = {
+      city: 'Please Select your City',
+
+      chain: true,
+      strictly_coffee: true,
+      bakeries: true,
+      breakfast_and_brunch: true,
+      diner: true,
+      deli: true,
+      icecream: true,
+      juice: true,
+      other: true,
+
+      lowcost: true,
+      medcost: true,
+      hicost: true,
+      hihicost: true,
+
+      rating: 0,
+
+      mapp: 0,
+      coffeeSource: 0,
+      client: 0,
+
+    };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handle_Reset = this.handle_Reset.bind(this);
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+
+    }
+
+
+    handleCheckboxChange(event){
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+                                });
+      }
+
+     handleChange(event){
+         this.setState({
+        [event.target.name]: event.target.value});
+      }
+
+     handle_Reset() {
+         //Still need to code this
+      }
+
+handleSubmit(event) {
+    // ensure Vega Lite plots map based on UI selection
+    var spec = `/vis/${this.state.city}/${this.state.rating}/${this.state.lowcost}/${this.state.medcost}/${this.state.hicost}/${this.state.hihicost}/${this.state.strictly_coffee}/${this.state.chain}/${this.state.bakeries}/${this.state.breakfast_and_brunch}/${this.state.diner}/${this.state.deli}/${this.state.icecream}/${this.state.juice}/${this.state.other}`;
+     //var spec = "https://gist.githubusercontent.com/andrewnell/fc14926f6ae3b5e1335d5bb1c2bfff5f/raw/87b40cacbb578d38a23ba3eb1db82e12504e94d3/DV_projectmockup.vg.json";
+     console.log(spec)
+    vegaEmbed('#vis', spec, {actions:false});
+    event.preventDefault();
+
+    // Redefine all variables based on UI selection
+    var city = this.state.city,
+        chain = this.state.chain,
+        strictly_coffee = this.state.strictly_coffee,
+        bakeries = this.state.bakeries,
+        diner = this.state.diner,
+        deli = this.state.deli,
+        breakfast_and_brunch = this.state.breakfast_and_brunch,
+        icecream = this.state.icecream,
+        juice = this.state.juice,
+        other = this.state.other,
+        lowcost = this.state.lowcost,
+        medcost = this.state.medcost,
+        hicost = this.state.hicost,
+        hihicost = this.state.hihicost,
+        rating = parseInt(this.state.rating);
+
+    // Define coffee Array and populate
+    var coffeearr = [],
+        coffeearr = convertArr(chain, 'chain', coffeearr),
+        coffeearr = convertArr(strictly_coffee, 'strictly_coffee', coffeearr),
+        coffeearr = convertArr(bakeries, 'bakeries', coffeearr),
+        coffeearr = convertArr(breakfast_and_brunch, 'breakfast_and_brunch', coffeearr),
+        coffeearr = convertArr(deli, 'deli', coffeearr),
+        coffeearr = convertArr(diner, 'diner', coffeearr),
+        coffeearr = convertArr(juice, 'juice_and_smoothie', coffeearr),
+        coffeearr = convertArr(icecream, 'ice_cream_and_froyo', coffeearr),
+        coffeearr = convertArr(other, 'other', coffeearr);
+
+    // Define Cost array and populate
+    var costarr = [],
+        costarr = convertArr(lowcost, '$', costarr),
+        costarr = convertArr(medcost, '$$', costarr),
+        costarr = convertArr(hicost, '$$$', costarr),
+        costarr = convertArr(hihicost, '$$$$', costarr);
+
+    var error = 'error'
+
+    // Ensure nevironmental variables are set to variabless in component
+    let coffeeSource = window.initial.datasource,
+        baseMap = window.initial.datamap;
+
+    // Update map with UI selections
+    UpdateCartoLayer(baseMap, coffeeSource, city, rating, coffeearr, costarr)
+
+    }
+
+  render() {
+
+    return (
+
+      React.createElement("form", {onSubmit: this.handleSubmit},
+
+            // Create City Selection Dropdown
+            React.createElement("label", null,
+                "City          ",
+                React.createElement("select", {
+                    name: "city",
+                    value: this.state.city,
+                    onChange: this.handleChange},
+                        React.createElement("option", {value: "NA"}, "Please Select your City"),
+                        React.createElement("option", {value: "Atlanta"}, "Atlanta"),
+                        React.createElement("option", {value: "Austin"}, "Austin"),
+                        React.createElement("option", {value: "Baltimore"}, "Baltimore"),
+                        React.createElement("option", {value: "Boston"}, "Boston"),
+                        React.createElement("option", {value: "Charlotte"}, "Charlotte"),
+                        React.createElement("option", {value: "Charlottesville"}, "Charlottesville"),
+                        React.createElement("option", {value: "Chicago"}, "Chicago"),
+                        React.createElement("option", {value: "Cleveland"}, "Cleveland"),
+                        React.createElement("option", {value: "Columbus"}, "Columbus"),
+                        React.createElement("option", {value: "Dallas"}, "Dallas"),
+                        React.createElement("option", {value: "Denver"}, "Denver"),
+                        React.createElement("option", {value: "Detroit"}, "Detroit"),
+                        React.createElement("option", {value: "Houston"}, "Houston"),
+                        React.createElement("option", {value: "Los Angeles"}, "Los Angeles"),
+                        React.createElement("option", {value: "Miami"}, "Miami"),
+                        React.createElement("option", {value: "New Orleans"}, "New Orleans"),
+                        React.createElement("option", {value: "New York"}, "New York"),
+                        React.createElement("option", {value: "Philadelphia"}, "Philadelphia"),
+                        React.createElement("option", {value: "Pittsburgh"}, "Pittsburgh"),
+                        React.createElement("option", {value: "Portland"}, "Portland"),
+                        React.createElement("option", {value: "Salt Lake City"}, "Salt Lake City"),
+                        React.createElement("option", {value: "San Francisco"}, "San Francisco"),
+                        React.createElement("option", {value: "Seattle"}, "Seattle"),
+                        React.createElement("option", {value: "Washington"}, "Washington")
+                ),
+
+            React.createElement("br", null),
+
+                // Create Coffee Shop type Checkboxes for selection
+                "Coffee Shop Type          ", React.createElement("br", null), "        " + ' ' +
+                "Strictly Coffee ", React.createElement("input", {
+                          type: "checkbox",
+                          name: "strictly_coffee",
+                          value: "strictly_coffee",
+                          checked: this.state.strictly_coffee,
+                          onChange: this.handleCheckboxChange}), "            " + ' ' +
+                "Chain ", React.createElement("input", {
+                          type: "checkbox",
+                          name: "chain",
+                          value: "chain",
+                          checked: this.state.chain,
+                          onChange: this.handleCheckboxChange}), "     " + ' ' +
+                "Bakeries ", React.createElement("input", {
+                          type: "checkbox",
+                          name: "bakeries",
+                          value: "bakeries",
+                          checked: this.state.bakeries,
+                          onChange: this.handleCheckboxChange}), "    ", React.createElement("br", null), "   " + ' ' +
+                "Breakfast and Brunch ", React.createElement("input", {
+                          type: "checkbox",
+                          name: "breakfast_and_brunch",
+                          value: "breakfast_and_brunch",
+                          checked: this.state.breakfast_and_brunch,
+                          onChange: this.handleCheckboxChange}), "         " + ' ' +
+                "Diner ", React.createElement("input", {
+                          type: "checkbox",
+                          name: "diner",
+                          value: "diner",
+                          checked: this.state.diner,
+                          onChange: this.handleCheckboxChange}), "      " + ' ' +
+                "Deli ", React.createElement("input", {
+                          type: "checkbox",
+                          name: "deli",
+                          value: "deli",
+                          checked: this.state.deli,
+                          onChange: this.handleCheckboxChange}), "    ", React.createElement("br", null), "    " + ' ' +
+                "Ice-cream and Froyo ", React.createElement("input", {
+                          type: "checkbox",
+                          name: "icecream",
+                          value: "icecream",
+                          checked: this.state.icecream,
+                          onChange: this.handleCheckboxChange}), "   " + ' ' +
+                "Juice and Smoothie ", React.createElement("input", {
+                          type: "checkbox",
+                          name: "juice",
+                          value: "juice",
+                          checked: this.state.juice,
+                          onChange: this.handleCheckboxChange}), "       " + ' ' +
+                "Other ", React.createElement("input", {
+                          type: "checkbox",
+                          name: "other",
+                          value: "other",
+                          checked: this.state.other,
+                          onChange: this.handleCheckboxChange}), "   ",
+            React.createElement("br", null),
+
+                // Create Cost Type Selection for Checkboxes
+              "Cost          " + ' ' +
+                    "$   ", React.createElement("input", {
+                          type: "checkbox",
+                          name: "lowcost",
+                          value: "lowcost",
+                          checked: this.state.lowcost,
+                          onChange: this.handleCheckboxChange}), "   " + ' ' +
+                    "$$  ", React.createElement("input", {
+                          type: "checkbox",
+                          name: "medcost",
+                          value: "medcost",
+                          checked: this.state.medcost,
+                          onChange: this.handleCheckboxChange}), "  " + ' ' +
+                    "$$$ ", React.createElement("input", {
+                          type: "checkbox",
+                          name: "hicost",
+                          value: "hicost",
+                          checked: this.state.hicost,
+                          onChange: this.handleCheckboxChange}), "  " + ' ' +
+                    "$$$$ ", React.createElement("input", {
+                          type: "checkbox",
+                          name: "hihicost",
+                          value: "hihicost",
+                          checked: this.state.hihicost,
+                          onChange: this.handleCheckboxChange}),
+            React.createElement("br", null),
+
+            // Create Minimum Rating Dropwdown
+              "Minimum Rating  ",
+              React.createElement("select", {
+                  name: "rating",
+                  value: this.state.rating,
+                  onChange: this.handleChange},
+                      React.createElement("option", {value: "0"}, "0"),
+                      React.createElement("option", {value: "1"}, "1"),
+                      React.createElement("option", {value: "2"}, "2"),
+                      React.createElement("option", {value: "3"}, "3"),
+                      React.createElement("option", {value: "4"}, "4"),
+                      React.createElement("option", {value: "5"}, "5")
+              )
+
+        ), " ", React.createElement("br", null), "      ",
+        // Button fro submission
+         React.createElement("button", {type: "button", onClick: this.handleSubmit}, "Update"), "                                ",
+
+        // Reset button needs to be created properly and fixed to make sure it works correctly
+        // React.createElement("button", {type: "button", onClick: this.handle_reset}, "Reset")
+                )
+
+    );
+  }
+
+}
+
+
+ReactDOM.render(
+    React.createElement("div", null,
+    React.createElement(App, null)
+  ),
+  document.getElementById('ui')
+);
+
+// Function for creation of Arrays for True and False statments of checkboxes
+function convertArr(coffeetype, name, arr) {
+   if (coffeetype === true) {
+        var temp = [name];
+        var arr = arr.concat(temp);
+    } else {
+        var temp = ['null'];
+        var arr = arr.concat(temp);
+    }
+   return arr;
+}
+
+// Function to initialise map
+function initVisualization(error) {
+    // Define Components and elements
+  let svg       = d3.select("svg"),
+      gChart    = svg.append("g"),
+
+    // Create base map
+      baseMap   = createBaseMap(),
+
+    // Set Carto CLient for using data
+      client    = new carto.Client({
+                    apiKey: 'NotNeeded',
+                    username: 'paulinez',
+                  });
+    // Create Carto Layer with data
+  let coffeeSource = createCartoLayer(client, baseMap);
+
+//    setupSelectionHandlers(baseMap, coffeeSource, CITY, minR, TypeARR, CostARR);
+
+  return {
+        datamap: baseMap,
+        datasource: coffeeSource
+    };
+}
+
+// Function to add Carto Layer with data and formatting prior to selections of User
+function createCartoLayer(client, baseMap) {
+
+    // Define data based off of query
+  let coffeeSource = new carto.source.SQL(`
+    SELECT * FROM paulinez.alldata
+  `);
+
+    // Set Style of data
+  let coffeeStyle= new carto.style.CartoCSS(`
+#layer {
+marker-width: ramp([review_cou], range(3, 14), quantiles(5));
+  [primary_ca = 'strictly_coffee']{
+    marker-fill: #4e79a7;
+  }[primary_ca  = 'chain']{
+    marker-fill: #f28e2b;
+  }[primary_ca  = 'bakeries']{
+    marker-fill: #e15759;
+  }[primary_ca  = 'breakfast_and_brunch']{
+    marker-fill: #76b7b2;
+  }[primary_ca  = 'diner']{
+    marker-fill: #59a14f;
+  }[primary_ca  = 'deli']{
+    marker-fill: #edc948;
+  }[primary_ca  = 'ice_cream_and_froyo']{
+    marker-fill: #b07aa1;
+  }[primary_ca  = 'juice_and_smoothie']{
+    marker-fill: #ff9da7;
+  }[primary_ca  = 'other']{
+    marker-fill: #9c755f;
+  }
+  marker-width: 5;
+  marker-fill-opacity: 0.9;
+  marker-allow-overlap: true;
+  marker-line-width: 1;
+  marker-line-color: #FFFFFF;
+  marker-line-opacity: 1;
+}
+  `);
+
+
+  // Now tell leaflet to create data with style and actual data points
+  let coffeeLayer = new carto.layer.Layer(coffeeSource, coffeeStyle);
+  client.addLayer(coffeeLayer);
+  client.getLeafletLayer().addTo(baseMap[2]);
+
+  return coffeeSource;
+}
+
+// Function to update carto layer based on UI selections
+function UpdateCartoLayer(baseMap, coffeeSource, CITY, minR, typeARR, costARR) {
+    // City Center Dictionary to ensure the map can center and move to each city correctly
+  var CityCenter = {'Please Select your City':[[39.003711, -101.867199],4],
+    'Atlanta':[[33.755, -84.3828],12],
+                    'Austin':[[30.2675,-97.7429],12],
+                    'Baltimore':[[39.2897,-76.6122],13],
+                    'Boston':[[42.3485,-71.0671],12],
+                    'Cambridge':[42.3743,-71.1220],
+                    'Newton':[42.3303,-71.1922],
+                    'Charlotte':[[35.2270,-80.8420],11],
+                    'Charlottesville':[[38.03066,-78.4790],13],
+                    'Chicago':[[41.8779,-87.629],11],
+                    'Cleveland':[[41.5015,-81.695],12],
+                    'Columbus':[[39.96379,-83.0003],11],
+                    'Dallas':[[32.7799,-96.7978],11],
+                    'Denver':[[39.73659,-104.98446],12],
+                    'Detroit':[[42.34605,-83.0553],11],
+                    'Houston':[[29.76012,-95.36560],11],
+                    'Los Angeles':[[34.0510,-118.254],11],
+                    'Miami':[[25.7738,-80.1942],12],
+                    'New Orleans':[[29.9483,-90.0722],12],
+                    'New York':[[40.7, -73.975],11],
+                    'Philadelphia':[[39.94852,-75.1621],12],
+                    'Pittsburgh':[[40.44167,-79.99620],12],
+                    'Portland':[[45.5234,-122.66305],12],
+                    'Salt Lake City':[[40.7599,-111.884],12],
+                    'San Francisco':[[37.7757,-122.4225],11],
+                    'Seattle':[[47.6098,-122.3277],11],
+                    'Washington':[[38.8955,-77.02769],12]}
+
+        // Define map to affect
+      let dMap    = baseMap[2];
+
+    // Update query based on selections
+      var query  = `SELECT * FROM paulinez.alldata
+                    WHERE city = '${CITY}'
+                    AND rating >= ${minR}
+                    AND (primary_ca = '${typeARR[0]}' OR
+                         primary_ca = '${typeARR[1]}' OR
+                         primary_ca = '${typeARR[2]}' OR
+                         primary_ca = '${typeARR[3]}' OR
+                         primary_ca = '${typeARR[4]}' OR
+                         primary_ca = '${typeARR[5]}' OR
+                         primary_ca = '${typeARR[6]}' OR
+                         primary_ca = '${typeARR[7]}' OR
+                         primary_ca = '${typeARR[8]}')
+                    AND (price = '${costARR[0]}' OR
+                         price = '${costARR[1]}' OR
+                         price = '${costARR[2]}' OR
+                         price = '${costARR[3]}')
+
+          `;
+        // Update Query
+      coffeeSource.setQuery(query);
+
+
+        // Tried to output data from Carto and SQL API's here but unfortunately could not so had to use vega and the iitial UI slections only for chart rather than additional filters of chart
+
+
+        // CReate Selection handlers to ensure elements defined for later changes
+      setupSelectionHandlers(baseMap, coffeeSource, CITY, minR, typeARR, costARR);
+
+    // Ensure map centered on right location when updated
+      dMap.setView(CityCenter[CITY][0], CityCenter[CITY][1]);
+
+}
+
+// function to create base map
+function createBaseMap() {
+    // Define original center
+  let center = [39.003711, -101.867199],
+      baseLight = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
+                              { maxZoom: 18, }),
+    //   baseDark  = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png',
+    //                           { maxZoom: 18, }),
+      circle    = L.circle(center, 1000, options={editable: true}),
+      dMap      = L.map('map', {
+                    center: center,
+                    zoom: 4,
+                    layers: [baseLight]
+                  }),
+      svg       = d3.select(dMap.getPanes().overlayPane).append("svg"),
+	  g         = svg.append("g").attr("class", "leaflet-zoom-hide");
+
+    // Layers for control of map
+  L.control.layers(
+                   {
+                    "Light": baseLight,
+//                     "Dark" : baseDark,
+                   },
+                   {
+                    "Selection": circle,
+                   }).addTo(dMap);
+
+  let infoBox = L.control({position: 'bottomleft'});
+//   let test = L.control({position: 'bottomright'});
+  infoBox.onAdd = function (map) {var div = L.DomUtil.create('div', 'infobox'); return div;}
+//   test.onAdd = function (map){var div1 = L.DomUtil.create('div1', 'test');
+// return div1;}
+  infoBox.addTo(dMap);
+//   test.addTo(dMap);
+
+  return [svg, g, dMap, circle];
+}
+
+
+// Function to update all chart elements easily and reference them
+function setupSelectionHandlers(baseMap, coffeeSource, CITY, minR, typeARR, costARR) {
+  let dMap    = baseMap[2],
+      circle  = baseMap[3],
+      infoBox = d3.select(".infobox.leaflet-control");
+
+    // Need to define this as global element or external data set that gets called in.
+  var CityCenter = {'Please Select your City':[[39.003711, -101.867199],4],
+    'Atlanta':[[33.755, -84.3828],12],
+                    'Austin':[[30.2675,-97.7429],12],
+                    'Baltimore':[[39.2897,-76.6122],13],
+                    'Boston':[[42.3485,-71.0671],12],
+                    'Cambridge':[42.3743,-71.1220],
+                    'Newton':[42.3303,-71.1922],
+                    'Charlotte':[[35.2270,-80.8420],11],
+                    'Charlottesville':[[38.03066,-78.4790],13],
+                    'Chicago':[[41.8779,-87.629],11],
+                    'Cleveland':[[41.5015,-81.695],12],
+                    'Columbus':[[39.96379,-83.0003],11],
+                    'Dallas':[[32.7799,-96.7978],11],
+                    'Denver':[[39.73659,-104.98446],12],
+                    'Detroit':[[42.34605,-83.0553],11],
+                    'Houston':[[29.76012,-95.36560],11],
+                    'Los Angeles':[[34.0510,-118.254],11],
+                    'Miami':[[25.7738,-80.1942],12],
+                    'New Orleans':[[29.9483,-90.0722],12],
+                    'New York':[[40.7, -73.975],11],
+                    'Philadelphia':[[39.94852,-75.1621],12],
+                    'Pittsburgh':[[40.44167,-79.99620],12],
+                    'Portland':[[45.5234,-122.66305],12],
+                    'Salt Lake City':[[40.7599,-111.884],12],
+                    'San Francisco':[[37.7757,-122.4225],11],
+                    'Seattle':[[47.6098,-122.3277],11],
+                    'Washington':[[38.8955,-77.02769],12]}
+
+    // Set location and mocement of circle and view of map
+    circle.setLatLng(CityCenter[CITY][0]);
+    dMap.on(L.Draw.Event.EDITMOVE, updateQueryStatus);
+    dMap.on(L.Draw.Event.EDITRESIZE, updateQueryStatus);
+    dMap.setView(CityCenter[CITY][0], CityCenter[CITY][1])
+    dMap.on('mouseup', updateQuery);
+
+
+    let circleUpdated = true;
+    updateQueryStatus(null);
+
+    function updateQueryStatus(e) {
+        circleUpdated = true;
+        updateCaption();
+    }
+
+    // Function to update query for circle
+    function updateQuery(e) {
+        if (circleUpdated) {
+            circleUpdated = false;
+        let radius = circle.getRadius(),
+             lat    = circle.getLatLng().lat.toFixed(4),
+            lng    = circle.getLatLng().lng.toFixed(4),
+            query  = `SELECT * FROM paulinez.alldata
+                      WHERE city = '${CITY}'
+                      AND rating >= ${minR}
+                      AND (primary_ca = '${typeARR[0]}' OR
+                           primary_ca = '${typeARR[1]}' OR
+                           primary_ca = '${typeARR[2]}' OR
+                           primary_ca = '${typeARR[3]}' OR
+                           primary_ca = '${typeARR[4]}' OR
+                           primary_ca = '${typeARR[5]}' OR
+                           primary_ca = '${typeARR[6]}' OR
+                           primary_ca = '${typeARR[7]}' OR
+                           primary_ca = '${typeARR[8]}')
+                      AND (price = '${costARR[0]}' OR
+                          price = '${costARR[1]}' OR
+                          price = '${costARR[2]}' OR
+                          price = '${costARR[3]}')
+                      AND ST_DWithin(the_geom::geography,
+                                      CDB_LatLng(${lat},${lng})::geography,
+                                      ${radius})
+          `;
+      coffeeSource.setQuery(query);
+    }
+  }
+    // Function to update captions in infobox
+  function updateCaption() {
+    let radius  = L.GeometryUtil.readableDistance(circle.getRadius(), true),
+        lat     = circle.getLatLng().lat.toFixed(4),
+        lng     = circle.getLatLng().lng.toFixed(4),
+        caption = `<table style='width:100%'>
+                   <tr><th>Coords</th><td>${lat},${lng}</td></tr>
+                   <tr><th>Radius</th><td>${radius}</td></tr>
+                   </table>`;
+    infoBox.html(caption);
+  }
+}
+
+
+var client = new carto.Client({
+    apiKey: 'YOUR_API_KEY_HERE',
+    username: 'paulinez'
+});
+
+</script>
+
+
+
+</html>
